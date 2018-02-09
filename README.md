@@ -7,3 +7,8 @@
 * The first player to reach the opponent's home row is the winner.
 * If all the pieces of a player are captured, that player loses.
 * A draw is impossible.
+
+
+## Part 1
+
+B) Representation Scheme: A board is represented as a list of lists of the Square Objects. Each Square Object represents a square on the board.

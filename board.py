@@ -7,6 +7,7 @@ class Board:
         self.rows_pieces = rows_pieces
         self.squares_list = []
 
+    def intial_state(self, rows, col, rows_pieces):
         for i in range(1, self.rows+1):
             row_of_squares = []
             for j in range(1, self.cols+1):
@@ -29,10 +30,14 @@ class Board:
             # We add current row to list of rows
             self.squares_list.append(row_of_squares)
 
+        return self.squares_list
+
+
 
 if __name__ == '__main__':
 
     board = Board(8,8,2)
-    for i in board.squares_list:
-        for j in i:
-            print(j.piece)
+    state = board.intial_state(8,8,2)
+    for some_list in state:
+        for square in some_list:
+            print(square.piece)
