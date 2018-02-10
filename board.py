@@ -5,7 +5,7 @@ class Board:
         self.rows = rows
         self.cols = cols
         self.rows_pieces = rows_pieces
-        self.squares_list = []
+        self.rows_list = []
 
     def intial_state(self, rows, col, rows_pieces):
         for i in range(1, self.rows+1):
@@ -19,7 +19,7 @@ class Board:
 
                 # Last [self.rows_pieces] rows
                 elif i > self.rows - self.rows_pieces:
-                    s2 = Square(i, j, '0')
+                    s2 = Square(i, j, 'O')
                     row_of_squares.append(s2)
 
                 # Middle rows
@@ -28,16 +28,34 @@ class Board:
                     row_of_squares.append(s3)
 
             # We add current row to list of rows
-            self.squares_list.append(row_of_squares)
+            self.rows_list.append(row_of_squares)
 
-        return self.squares_list
+        return self.rows_list
 
+    def display_state(self):
+        numbering = ""
+        for i in range(1, self.cols+1):
+            numbering+=str(i)
+        print("  "+numbering)
+        i = 1
+        for row in self.rows_list:
+            row_string = ''
+            row_string += str(i)
+            row_string += " "
+            for square in row:
+                row_string += square.sign
+            row_string_right = ' '
+            row_string += " "+str(i)
+            i += 1
+            print(row_string)
+        print("  "+numbering)
 
 
 if __name__ == '__main__':
 
     board = Board(8,8,2)
     state = board.intial_state(8,8,2)
-    for some_list in state:
-        for square in some_list:
-            print(square.piece)
+    # for list_of_squares in state:
+    #     for square in list_of_squares:
+    #         print(square.sign)
+    board.display_state()
