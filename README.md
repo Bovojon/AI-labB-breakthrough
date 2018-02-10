@@ -16,3 +16,7 @@
 ## Part 1
 
 B) Representation Scheme: A board is represented as a list of lists of the Square Objects. Each Square Object represents a square on the board.
+
+E) Transition function conditions:
+1. Spot must be empty
+2. Spot must exist - cannot transition outside of the board
