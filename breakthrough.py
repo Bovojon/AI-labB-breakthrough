@@ -6,24 +6,26 @@ def end_game(state):
 
     # If there is an X in the last row
     for square in state[last_row-1]:
-        if square.piece == 'X':
-            print("End game")
+        if square.sign == 'X':
+            print("End game 1")
 
     # If there is an 0 in the first row
     for square in state[0]:
-        if square.piece == '0':
-            print("End game")
+        if square.sign == 'O':
+            print("End game 2")
 
     # If either player has lost all their pieces
-    x = o = []
+    x = o = False
     for some_list in state:
         for square in some_list:
-            if square.piece == 'X':
-                x.append(square.piece)
-            elif square.piece == '0':
-                o.append(square.piece)
-    if len(x) == 0 or len(o) == 0:
+            if square.sign == 'X':
+                x = True
+            if square.sign == 'O':
+                o = True
+    if (not x) or (not o):
         print("End game")
+    else:
+        print("Working game")
 
 
 if __name__ == '__main__':
