@@ -8,6 +8,10 @@
 * If all the pieces of a player are captured, that player loses.
 * A draw is impossible.
 
+### Representing moves - Use Action Object
+* Which piece (x,y)
+* Where is it moving to? (x,y)
+* Check to see if spot is occupied
 
 ## Part 1
 
