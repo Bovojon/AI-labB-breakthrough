@@ -1,5 +1,5 @@
 class Square:
-    def __init__(self, row, col, piece):
+    def __init__(self, row, col, sign):
         self.row = row
         self.col = col
-        self.piece = piece
+        self.sign = sign
