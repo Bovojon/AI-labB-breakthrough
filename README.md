@@ -20,3 +20,8 @@ B) Representation Scheme: A board is represented as a list of lists of the Squar
 E) Transition function conditions:
 1. Spot must be empty
 2. Spot must exist - cannot transition outside of the board
+
+
+## TODO
+1) Check to make sure that number of rows of pieces not more than allowed.
+2) Return state for transition function
