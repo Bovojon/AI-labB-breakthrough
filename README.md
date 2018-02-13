@@ -25,3 +25,12 @@ E) Transition function conditions:
 ## TODO
 1) Check to make sure that number of rows of pieces not more than allowed.
 2) Return state for transition function
+
+## References
+https://en.wikipedia.org/wiki/Breakthrough_(board_game)
+
+https://www.codeproject.com/Articles/37024/Simple-AI-for-the-Game-of-Breakthrough
+
+https://github.com/lcwadle/AI-Breakthrough
+
+https://chessprogramming.wikispaces.com/Breakthrough+(Game)
