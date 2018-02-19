@@ -17,6 +17,10 @@
 
 B) Representation Scheme: A board is represented as a list of lists of the Square Objects. Each Square Object represents a square on the board.
 
+C) Ideas for 2 other utility functions:
+1. Number of opponent's pieces past the middle of the board
+2. Number of own_pieces vs. opp_pieces
+
 E) Transition function conditions:
 1. Spot must be empty
 2. Spot must exist - cannot transition outside of the board
@@ -28,6 +32,8 @@ E) Transition function conditions:
 
 ## References
 https://en.wikipedia.org/wiki/Breakthrough_(board_game)
+
+http://giocc.com/concise-implementation-of-minimax-through-higher-order-functions.html
 
 https://www.codeproject.com/Articles/37024/Simple-AI-for-the-Game-of-Breakthrough
 
