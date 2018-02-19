@@ -56,12 +56,12 @@ class Board:
         # If there is an X in the last row
         for square in state[last_row-1]:
             if square.sign == 'X':
-                print("End game 1")
+                return True
 
         # If there is an 0 in the first row
         for square in state[0]:
             if square.sign == 'O':
-                print("End game 2")
+                return True
 
         # If either player has lost all their pieces
         x = o = False
@@ -72,9 +72,9 @@ class Board:
                 if square.sign == 'O':
                     o = True
         if (not x) or (not o):
-            print("End game")
+            return True
         else:
-            print("Working game")
+            return False
 
 
 if __name__ == '__main__':
