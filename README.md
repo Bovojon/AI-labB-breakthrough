@@ -33,6 +33,8 @@ E) Transition function conditions:
 ## References
 https://en.wikipedia.org/wiki/Breakthrough_(board_game)
 
+https://en.wikipedia.org/wiki/Minimax
+
 http://giocc.com/concise-implementation-of-minimax-through-higher-order-functions.html
 
 https://www.codeproject.com/Articles/37024/Simple-AI-for-the-Game-of-Breakthrough
