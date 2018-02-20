@@ -23,41 +23,6 @@ class Game(Action, Node):
         utility = (0 - count) + random.random()
         return utility
 #-----------------------------------------------------------------------------#
-    # Need to change
-    def minimax(self, state, player, depth, heuristic):
-        all_moves = self.move_generator(state)
-        best_move = all_moves[0]
-        best_score = float('-inf')
-        for move in all_moves:
-            state_copy = state.transition(move)
-            score = min_player(state_copy, depth)
-            if score > best_score:
-                best_move = move
-                best_score = score
-        return best_move
-
-    def min_player(self, state, depth):
-        all_moves = state.move_generator()
-        best_score = float('inf')
-        for move in all_moves:
-            state_copy = state.transition()
-            score = max_player(state_copy, depth)
-            if score < best_score:
-                best_move = move
-                best_score = score
-        return best_score
-
-    def max_player(self, state, depth):
-        all_moves = state.move_generator()
-        best_score = float('inf')
-        for move in all_moves:
-            state_copy = state.transition()
-            score = min_player(state_copy, depth)
-            if score > best_score:
-                best_move = move
-                best_score = score
-        return best_score
-#-----------------------------------------------------------------------------#
 
     def minimax_wiki(node_state, depth, maximizingPlayer, player_sign):
         if depth = 0 or node_state.is_terminal():
@@ -98,12 +63,8 @@ Repeat...
                         node_state.children.append(new_state)
                     # Get the state and pass it into Node
 
-
-
     def play_game(self, heuristic_X, heuristic_O, board_state, depth):
         pass
-
-
 
 
 if __name__ == '__main__':
