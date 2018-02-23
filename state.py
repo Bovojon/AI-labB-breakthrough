@@ -5,20 +5,47 @@ WHITE = 0
 BLACK = 1
 
 
+def switchSide(side):
+    if side == WHITE:
+        return BLACK
+    else:
+        return WHITE
+
+
+def minimax(state, depth, maximizingPlayer, side, function):
+    if depth == 0 or state.won():
+        bestState = state
+        return bestState
+    possibleMove = state.possibleMoves(side)
+    bestState = possibleMove[0]
+    if maximizingPlayer:
+        for child in possibleMove:
+            v = minimax(child, depth - 1, False, switchSide(side), function)
+            if v.heuristicValue(function, side) > bestState.heuristicValue(function, side):
+                bestState = v
+        return bestState
+    else:
+        for child in possibleMove:
+            v = minimax(child, depth - 1, True, switchSide(side), function)
+            if v.heuristicValue(function, side) < bestState.heuristicValue(function, side):
+                bestState = v
+        return bestState
+
+
 class State:
     def __init__(self, width, height, rowNum):
         self.m_width = width
         self.m_height = height
         self.m_blacks = []
         self.m_whites = []
-
+        assert (rowNum <= self.m_width / 2)
         for x in range(self.m_width):
             for y in range(rowNum):
                 self.m_whites.append((x, y))
                 self.m_blacks.append((x, self.m_height - y - 1))
 
     def heuristicValue(self, utilityFunction, side):
-        return utilityFunction(side, self)
+        return utilityFunction(self, side)
 
     def moveNode(self, fromPos, toPos, side):
         if side == WHITE:
@@ -50,14 +77,14 @@ class State:
                 if (node[0] + 1, node[1] + 1) not in self.m_whites:
                     if node[0] + 1 < self.m_width:
                         newState = copy.deepcopy(self)
-                        newState.moveNode(node, (node[0] - 1, node[1] + 1), WHITE)
+                        newState.moveNode(node, (node[0] + 1, node[1] + 1), WHITE)
                         possibleStates.append(newState)
-        else:
+        elif side == BLACK:
             for node in self.m_blacks:
                 # Check straight
                 if (node[0], node[1] - 1) not in (self.m_whites + self.m_blacks):
                     newState = copy.deepcopy(self)
-                    newState.moveNode(node, (node[0], node[1] + 1), BLACK)
+                    newState.moveNode(node, (node[0], node[1] - 1), BLACK)
                     possibleStates.append(newState)
                 #Check diagonal
                 if (node[0] - 1, node[1] - 1) not in self.m_blacks:
@@ -68,12 +95,12 @@ class State:
                 if (node[0] + 1, node[1] - 1) not in self.m_blacks:
                     if node[0] + 1 < self.m_width:
                         newState = copy.deepcopy(self)
-                        newState.moveNode(node, (node[0] - 1, node[1] - 1), BLACK)
+                        newState.moveNode(node, (node[0] + 1, node[1] - 1), BLACK)
                         possibleStates.append(newState)
         return possibleStates
 
-    def transition(self, side, utilityFunction):
-        return random.choice(self.possibleMoves(side))
+    def transition(self, side, depth, utilityFunction):
+        return minimax(self, depth, True, side, utilityFunction)
 
     def won(self):
         for node in self.m_blacks:
@@ -87,7 +114,7 @@ class State:
         return False
 
     def displayState(self):
-        for y in range(self.m_height):
+        for y in range(self.m_height-1, -1, -1):
             for x in range(self.m_width):
                 if (x, y) in self.m_whites:
                     print("O", end="")
@@ -96,4 +123,3 @@ class State:
                 else:
                     print(".", end="")
             print()
-
