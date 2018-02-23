@@ -13,26 +13,28 @@ def switchSide(side):
 
 
 def minimax(state, depth, maximizingPlayer, side, function):
-    if depth == 0 or state.won():
-        return state
+    if depth == 0 or state.possibleMoves(side) == 0:
+        return state, 0
     possibleMove = state.possibleMoves(side)
     bestState = possibleMove[0]
     if maximizingPlayer:
         bestValue = float("-inf")
         for child in possibleMove:
-            v = minimax(child, depth - 1, False, switchSide(side), function)
+            v, _ = minimax(child, depth - 1, False, switchSide(side), function)
             if v.heuristicValue(function, side) > bestValue:
                 bestState = v
                 bestValue = v.heuristicValue(function, side)
-        return bestState
+                bestChild = child
+        return bestState, bestChild
     else:
         bestValue = float("inf")
         for child in possibleMove:
-            v = minimax(child, depth - 1, True, switchSide(side), function)
+            v, _ = minimax(child, depth - 1, True, switchSide(side), function)
             if v.heuristicValue(function, side) < bestValue:
                 bestState = v
                 bestValue = v.heuristicValue(function, side)
-        return bestState
+                bestChild = child
+        return bestState, bestChild
 
 
 class State:
@@ -103,8 +105,7 @@ class State:
         return possibleStates
 
     def transition(self, side, depth, utilityFunction):
-        minimax(self, depth, True, side, utilityFunction).displayState()
-        return minimax(self, depth, True, side, utilityFunction)
+        return minimax(self, depth, True, side, utilityFunction)[1]
 
     def won(self):
         for node in self.m_blacks:
@@ -114,6 +115,12 @@ class State:
         for node in self.m_whites:
             if node[1] == self.m_height - 1:
                 return True
+
+        if len(self.m_whites) == 0:
+            return True
+
+        if len(self.m_blacks) == 0:
+            return True
 
         return False
 
