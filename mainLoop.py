@@ -4,17 +4,19 @@ from strategies.evasive import evasive
 
 
 def main():
-    state = State(8, 8, 2)
+    state = State(5, 5, 1)
     playing = WHITE
+    turn = 0
     state.displayState()
-    print()
+
     while not state.won():
+        turn += 1
         state = state.transition(playing, 3, evasive)
         if playing == WHITE:
             playing = BLACK
         else:
             playing = WHITE
-    state.displayState()
+        #state.displayState()
 
 
 if __name__ == "__main__":

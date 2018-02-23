@@ -14,21 +14,24 @@ def switchSide(side):
 
 def minimax(state, depth, maximizingPlayer, side, function):
     if depth == 0 or state.won():
-        bestState = state
-        return bestState
+        return state
     possibleMove = state.possibleMoves(side)
     bestState = possibleMove[0]
     if maximizingPlayer:
+        bestValue = float("-inf")
         for child in possibleMove:
             v = minimax(child, depth - 1, False, switchSide(side), function)
-            if v.heuristicValue(function, side) > bestState.heuristicValue(function, side):
+            if v.heuristicValue(function, side) > bestValue:
                 bestState = v
+                bestValue = v.heuristicValue(function, side)
         return bestState
     else:
+        bestValue = float("inf")
         for child in possibleMove:
             v = minimax(child, depth - 1, True, switchSide(side), function)
-            if v.heuristicValue(function, side) < bestState.heuristicValue(function, side):
+            if v.heuristicValue(function, side) < bestValue:
                 bestState = v
+                bestValue = v.heuristicValue(function, side)
         return bestState
 
 
@@ -100,6 +103,7 @@ class State:
         return possibleStates
 
     def transition(self, side, depth, utilityFunction):
+        minimax(self, depth, True, side, utilityFunction).displayState()
         return minimax(self, depth, True, side, utilityFunction)
 
     def won(self):
@@ -123,3 +127,4 @@ class State:
                 else:
                     print(".", end="")
             print()
+        print()
