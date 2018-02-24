@@ -4,7 +4,6 @@ import copy
 WHITE = 0
 BLACK = 1
 
-
 def switchSide(side):
     if side == WHITE:
         return BLACK
@@ -12,29 +11,27 @@ def switchSide(side):
         return WHITE
 
 def minimax(state, depth, maximizingPlayer, side, function):
-    if depth == 0 or len(state.possibleMoves(side)) == 0:
-        return state, 0
-    possibleMove = state.possibleMoves(side)
-    bestState = possibleMove[0]
+    if depth == 0 or len(state.possibleMoves(side)) == 0 or len(state.possibleMoves(switchSide(side))) == 0:
+        return state.heuristicValue(function, side), state
 
     if maximizingPlayer:
+        possibleMove = state.possibleMoves(switchSide(side))
         bestValue = float("-inf")
         for child in possibleMove:
             v, _ = minimax(child, depth - 1, False, side, function)
-            if v.heuristicValue(function, side) > bestValue:
-                bestState = v
-                bestValue = v.heuristicValue(function, side)
+            if v > bestValue:
+                bestValue = v
                 bestChild = child
-        return bestState, bestChild
+        return bestValue, bestChild
     else:
+        possibleMove = state.possibleMoves(side)
         bestValue = float("inf")
         for child in possibleMove:
             v, _ = minimax(child, depth - 1, True, side, function)
-            if v.heuristicValue(function, side) < bestValue:
-                bestState = v
-                bestValue = v.heuristicValue(function, side)
+            if v < bestValue:
+                bestValue = v
                 bestChild = child
-        return bestState, bestChild
+        return bestValue, bestChild
 
 
 class State:

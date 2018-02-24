@@ -22,8 +22,12 @@ def play_game(white_heuristic, black_heuristic, state):
         else:
             state = state.transition(playing, 3, black_heuristic)
             playing = WHITE
+        state.displayState()
+
     whiteCaptured = state.m_totalPiece - len(state.m_whites)
     blackCaptured = state.m_totalPiece - len(state.m_blacks)
+    print(whiteCaptured)
+    print(blackCaptured)
     return switchSide(playing), whiteCaptured, blackCaptured
 
 
@@ -31,11 +35,11 @@ if __name__ == "__main__":
     fileToWrite = open('report.txt', 'w')
     row = 5
     col = 5
-    pieces = 1
+    pieces = 2
     state = State(row, col, pieces)
     whiteWins = 0
     blackWins = 0
-    games_to_play = 5
+    games_to_play = 1
     for i in range(games_to_play):
         if play_game(evasive, conqueror, state)[0] == WHITE:
             whiteWins += 1
