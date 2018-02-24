@@ -1,4 +1,4 @@
-import random
+import random, sys
 import copy
 
 WHITE = 0
@@ -11,16 +11,16 @@ def switchSide(side):
     else:
         return WHITE
 
-
 def minimax(state, depth, maximizingPlayer, side, function):
-    if depth == 0 or state.possibleMoves(side) == 0:
+    if depth == 0 or len(state.possibleMoves(side)) == 0:
         return state, 0
     possibleMove = state.possibleMoves(side)
     bestState = possibleMove[0]
+
     if maximizingPlayer:
         bestValue = float("-inf")
         for child in possibleMove:
-            v, _ = minimax(child, depth - 1, False, switchSide(side), function)
+            v, _ = minimax(child, depth - 1, False, side, function)
             if v.heuristicValue(function, side) > bestValue:
                 bestState = v
                 bestValue = v.heuristicValue(function, side)
@@ -29,7 +29,7 @@ def minimax(state, depth, maximizingPlayer, side, function):
     else:
         bestValue = float("inf")
         for child in possibleMove:
-            v, _ = minimax(child, depth - 1, True, switchSide(side), function)
+            v, _ = minimax(child, depth - 1, True, side, function)
             if v.heuristicValue(function, side) < bestValue:
                 bestState = v
                 bestValue = v.heuristicValue(function, side)
@@ -43,6 +43,7 @@ class State:
         self.m_height = height
         self.m_blacks = []
         self.m_whites = []
+        self.m_totalPiece = rowNum * self.m_width
         assert (rowNum <= self.m_width / 2)
         for x in range(self.m_width):
             for y in range(rowNum):
