@@ -15,7 +15,7 @@ def minimax(state, depth, maximizingPlayer, side, function):
         return state.heuristicValue(function, side), state
 
     if maximizingPlayer:
-        possibleMove = state.possibleMoves(switchSide(side))
+        possibleMove = state.possibleMoves(side)
         bestValue = float("-inf")
         for child in possibleMove:
             v, _ = minimax(child, depth - 1, False, side, function)
@@ -24,7 +24,7 @@ def minimax(state, depth, maximizingPlayer, side, function):
                 bestChild = child
         return bestValue, bestChild
     else:
-        possibleMove = state.possibleMoves(side)
+        possibleMove = state.possibleMoves(switchSide(side))
         bestValue = float("inf")
         for child in possibleMove:
             v, _ = minimax(child, depth - 1, True, side, function)

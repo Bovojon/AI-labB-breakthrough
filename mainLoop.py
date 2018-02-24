@@ -16,11 +16,12 @@ def play_game(white_heuristic, black_heuristic, state):
     turn = 0
     while not state.won():
         turn += 1
+        print(playing)
         if playing == WHITE:
-            state = state.transition(playing, 3, white_heuristic)
+            state = state.transition(playing, 4, white_heuristic)
             playing = BLACK
         else:
-            state = state.transition(playing, 3, black_heuristic)
+            state = state.transition(playing, 4, black_heuristic)
             playing = WHITE
         state.displayState()
 
@@ -39,7 +40,7 @@ if __name__ == "__main__":
     state = State(row, col, pieces)
     whiteWins = 0
     blackWins = 0
-    games_to_play = 1
+    games_to_play = 10
     for i in range(games_to_play):
         if play_game(evasive, conqueror, state)[0] == WHITE:
             whiteWins += 1
@@ -53,8 +54,8 @@ if __name__ == "__main__":
 
     fileToWrite.write("Played {} games.\n".format(games_to_play))
     fileToWrite.write("Board state: ({}, {}, {})\n".format(row, col, pieces))
-    fileToWrite.write("White wins: "+str(whiteWins/(whiteWins+ blackWins) * 100)+"%\n")
-    fileToWrite.write("Black wins: "+str(blackWins/(whiteWins+ blackWins) * 100)+"%\n")
+    fileToWrite.write("White wins: "+str(whiteWins/(whiteWins + blackWins) * 100)+"%\n")
+    fileToWrite.write("Black wins: "+str(blackWins/(whiteWins + blackWins) * 100)+"%\n")
     fileToWrite.write("------------------------------------------------------------")
 
     fileToWrite.close()
