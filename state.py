@@ -105,7 +105,7 @@ class State:
     def transition(self, side, depth, utilityFunction):
         return minimax(self, depth, True, side, utilityFunction)[1]
 
-    def won(self):
+    def end_game(self):
         for node in self.m_blacks:
             if node[1] == 0:
                 return True

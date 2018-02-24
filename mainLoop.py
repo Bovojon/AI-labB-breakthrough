@@ -2,8 +2,8 @@ from state import State
 from state import WHITE, BLACK
 from strategies.evasive import evasive
 from strategies.conqueror import conqueror
-from strategies.meanHeuristic import meanHeuristic
-
+from strategies.meanHeauristic import meanHeauristic
+from strategies.wise import wise
 
 def switchSide(side):
     if side == WHITE:
@@ -14,7 +14,7 @@ def switchSide(side):
 def play_game(white_heuristic, black_heuristic, state):
     playing = WHITE
     turn = 0
-    while not state.won():
+    while not state.end_game():
         turn += 1
         print(playing)
         if playing == WHITE:
@@ -46,16 +46,9 @@ if __name__ == "__main__":
             whiteWins += 1
         else:
             blackWins += 1
-
-    # whiteCaptured = play_game(evasive, conqueror, board_state)[1]
-    # blackCaptured = play_game(evasive, conqueror, board_state)[2]
-    # fileToWrite.write("Number of white pieces captured: "++str(whiteCaptured))
-    # fileToWrite.write("Number of black pieces captured: "++str(blackCaptured))
-
     fileToWrite.write("Played {} games.\n".format(games_to_play))
     fileToWrite.write("Board state: ({}, {}, {})\n".format(row, col, pieces))
     fileToWrite.write("White wins: "+str(whiteWins/(whiteWins + blackWins) * 100)+"%\n")
     fileToWrite.write("Black wins: "+str(blackWins/(whiteWins + blackWins) * 100)+"%\n")
     fileToWrite.write("------------------------------------------------------------")
-
     fileToWrite.close()
